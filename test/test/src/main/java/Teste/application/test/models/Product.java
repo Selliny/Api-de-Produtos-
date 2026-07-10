@@ -11,34 +11,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tb_produtos")
 public class Product extends RepresentationModel<Product> implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    private Double value;
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Product{");
-        sb.append("id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", value=").append(value);
-        sb.append('}');
-        return sb.toString();
-    }
-
-
-    
-
+    private Double price;
 }
-

@@ -1,48 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package Teste.application.test.controller;
 
-
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class ProductRecordDto {
 
-	private Long id;
-	private String name;
-	private Double price;
+    @NotBlank
+    private String name;
 
-	public ProductRecordDto() {
-	}
+    @NotNull
+    @DecimalMin(value = "0.0", inclusive = false)
+    private Double price;
 
-	public ProductRecordDto(Long id, String name, Double price) {
-		this.id = id;
-		this.name = name;
-		this.price = price;
-	}
+    public ProductRecordDto() {
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public ProductRecordDto(String name, Double price) {
+        this.name = name;
+        this.price = price;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 }
