@@ -1,0 +1,6 @@
+/test/test/target/
+/.idea/
+/.vscode/
+*.class
+*.log
+*.iml

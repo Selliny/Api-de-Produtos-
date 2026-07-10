@@ -1,6 +1,6 @@
-# API de Produtos
+# Product API
 
-Aplicacao REST simples para cadastro de produtos com Spring Boot, Spring Web, Spring Data JPA, PostgreSQL, validacao de entrada e links HATEOAS.
+API REST para gerenciamento de produtos com Spring Boot, Spring Web, Spring Data JPA, PostgreSQL, validacao de entrada e links HATEOAS.
 
 ## Estrutura do projeto
 
@@ -13,6 +13,12 @@ test/test
 O arquivo `pom.xml` da aplicacao esta em:
 
 [`test/test/pom.xml`](/C:/Users/Selliny/Api-de-Produtos-/test/test/pom.xml)
+
+Pacote raiz da aplicacao:
+
+```text
+com.selliny.productapi
+```
 
 ## Tecnologias
 
@@ -42,9 +48,17 @@ Configuracao padrao:
 ```yml
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/Test
-    username: postgres
-    password: mangodb
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/productdb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+```
+
+Voce pode sobrescrever esses valores com variaveis de ambiente:
+
+```powershell
+$env:DB_URL="jdbc:postgresql://localhost:5432/productdb"
+$env:DB_USERNAME="postgres"
+$env:DB_PASSWORD="sua_senha"
 ```
 
 Antes de executar, ajuste esses valores conforme o seu ambiente.
@@ -186,3 +200,4 @@ Resposta esperada:
 
 - O schema do banco e atualizado automaticamente por `spring.jpa.hibernate.ddl-auto=update`
 - A pasta `target/` contem arquivos gerados no build e nao deve ser tratada como codigo-fonte
+- O artefato Maven atual do projeto e `com.selliny:product-api`

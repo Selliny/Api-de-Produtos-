@@ -8,11 +8,11 @@
 		<version>3.4.5</version>
 		<relativePath/> 
 	</parent>
-	<groupId>Teste.application</groupId>
-	<artifactId>test</artifactId>
+	<groupId>com.selliny</groupId>
+	<artifactId>product-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>test</name>
-	<description>application test again </description>
+	<name>product-api</name>
+	<description>REST API for product management</description>
 	<url/>
 	<licenses>
 		<license/>
