@@ -88,4 +88,17 @@ class ProductsControllerTest {
 
         verify(productsServices).deleteById(1L);
     }
+
+    @Test
+    void shouldReturnValidationErrorForInvalidPayload() throws Exception {
+        mockMvc.perform(post("/products")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"A\",\"price\":0}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Validation failed"))
+                .andExpect(jsonPath("$.validationErrors.name")
+                        .value("Name must have between 3 and 120 characters"))
+                .andExpect(jsonPath("$.validationErrors.price")
+                        .value("Price must be greater than zero"));
+    }
 }

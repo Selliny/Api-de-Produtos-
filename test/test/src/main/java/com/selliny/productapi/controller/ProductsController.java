@@ -19,11 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.selliny.productapi.models.Product;
 import com.selliny.productapi.services.ProductsServices;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @Validated
 @RestController
 @RequestMapping("/products")
+@Tag(name = "Products", description = "Operations for product management")
 public class ProductsController {
 
     private final ProductsServices productsService;
@@ -33,6 +37,7 @@ public class ProductsController {
     }
 
     @GetMapping
+    @Operation(summary = "List all products")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productsService.findAll();
         products.forEach(product -> product.add(
@@ -41,6 +46,7 @@ public class ProductsController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get one product by id")
     public ResponseEntity<Product> getOneProduct(@PathVariable Long id) {
         Product product = productsService.findById(id);
         product.add(linkTo(methodOn(ProductsController.class).getAllProducts()).withRel("products"));
@@ -48,6 +54,7 @@ public class ProductsController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a new product")
     public ResponseEntity<Product> saveProduct(@RequestBody @Valid ProductRecordDto productRecordDto) {
         Product product = new Product();
         product.setName(productRecordDto.getName());
@@ -58,6 +65,7 @@ public class ProductsController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update an existing product")
     public ResponseEntity<Product> updateProduct(
             @PathVariable Long id,
             @RequestBody @Valid ProductRecordDto productRecordDto) {
@@ -70,6 +78,7 @@ public class ProductsController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a product by id")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productsService.deleteById(id);
         return ResponseEntity.noContent().build();

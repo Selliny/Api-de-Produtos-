@@ -27,6 +27,7 @@ com.selliny.productapi
 - Spring Web
 - Spring Data JPA
 - Spring HATEOAS
+- Swagger / OpenAPI
 - PostgreSQL
 - Maven
 - Lombok
@@ -83,6 +84,50 @@ Ou gere o build com:
 mvn clean install
 ```
 
+Documentacao interativa da API:
+
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- OpenAPI JSON: `http://localhost:8080/v3/api-docs`
+
+## Como executar com Docker
+
+O projeto possui:
+
+- `test/test/Dockerfile` para a API
+- `docker-compose.yml` na raiz para subir API, PostgreSQL e pgAdmin
+
+Suba tudo com:
+
+```powershell
+docker compose up --build
+```
+
+Servicos disponiveis:
+
+- API: `http://localhost:8080`
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- PostgreSQL: `localhost:5432`
+- pgAdmin: `http://localhost:5050`
+
+Credenciais padrao do PostgreSQL:
+
+- database: `productdb`
+- user: `postgres`
+- password: `postgres`
+
+Credenciais padrao do pgAdmin:
+
+- email: `admin@admin.com`
+- password: `admin123`
+
+Para conectar o pgAdmin ao banco:
+
+- host: `postgres`
+- port: `5432`
+- database: `productdb`
+- user: `postgres`
+- password: `postgres`
+
 ## Como testar
 
 Para rodar os testes:
@@ -110,8 +155,17 @@ Produto:
 
 O payload de entrada exige:
 
-- `name`: obrigatorio e nao vazio
+- `name`: obrigatorio, nao vazio, com 3 a 120 caracteres
 - `price`: obrigatorio e maior que zero
+
+Quando a validacao falha, a API responde com estrutura padronizada contendo:
+
+- `timestamp`
+- `status`
+- `error`
+- `message`
+- `path`
+- `validationErrors`
 
 ## Endpoints
 
@@ -192,9 +246,17 @@ Resposta esperada:
 ## Organizacao do codigo
 
 - `controller`: endpoints HTTP e tratamento de requisicoes
+- `config`: configuracao do Swagger/OpenAPI
 - `services`: regras de negocio
 - `repository`: acesso ao banco com JPA
 - `models`: entidades persistidas
+
+## Testes
+
+- `ProductsControllerTest`: testa a camada web com `MockMvc`
+- `ProductsServiceImplTest`: testa regras da service com Mockito
+- `ProductsRepositoryTest`: testa persistencia com JPA e H2
+- `ProductsIntegrationTest`: testa fluxo integrado da API com H2 em memoria
 
 ## Observacoes
 
